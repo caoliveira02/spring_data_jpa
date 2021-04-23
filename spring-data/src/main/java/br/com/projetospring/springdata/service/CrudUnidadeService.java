@@ -10,7 +10,7 @@ import br.com.projetospring.springdata.repositiry.UnidadeRepository;
 @Service
 public class CrudUnidadeService {
 
-	private boolean system = true;
+	private Boolean system = true;
 	private final UnidadeRepository unidadeRepository;
 	
 	public CrudUnidadeService(UnidadeRepository unidadeRepository) {
@@ -19,11 +19,11 @@ public class CrudUnidadeService {
 	
 	public void inicial(Scanner scanner) {
 		while(system) {
-			System.out.println("Qual ação de Unidade deseja executar:");
+			System.out.println("Qual acao de cargo deseja executar");
 			System.out.println("0 - Sair");
 			System.out.println("1 - Salvar");
 			System.out.println("2 - Atualizar");
-			System.out.println("3 - Vizualizar");
+			System.out.println("3 - Visualizar");
 			System.out.println("4 - Deletar");
 			
 			int action = scanner.nextInt();
@@ -40,55 +40,60 @@ public class CrudUnidadeService {
 				break;
 			case 4:
 				deletar(scanner);
-				break;	
+				break;
 			default:
 				system = false;
 				break;
 			}
+			
 		}
+		
 	}
 	
-	public void salvar(Scanner scanner) {
-		System.out.println("Descrição: ");
-		String descricao = scanner.next();
-		System.out.println("Endereço: ");
-		String endereco = scanner.next();
-		
-		Unidade unidade = new Unidade();
-		unidade.setDescricao(descricao);
-		unidade.setEndereco(endereco);
-		
-		unidadeRepository.save(unidade);
-		System.out.println("Salvo");
-	}
-	
-	public void atualizar(Scanner scanner) {
-		System.out.println("Id: ");
-		int id = scanner.nextInt();
-		System.out.println("Descrição: ");
-		String descricao = scanner.next();
-		System.out.println("Endreço: ");
-		String endereco = scanner.next();
-		
-		Unidade unidade = new Unidade();
-		unidade.setId(id);
-		unidade.setDescricao(descricao);
-		unidade.setEndereco(endereco);
+	private void salvar(Scanner scanner) {
+		System.out.println("Digite o nome da unidade");
+        String nome = scanner.next();
 
-		unidadeRepository.save(unidade);
-		System.out.println("Atualizado");
+        System.out.println("Digite o endereco");
+        String endereco = scanner.next();
+
+        Unidade unidadeTrabalho = new Unidade();
+        unidadeTrabalho.setDescricao(nome);
+        unidadeTrabalho.setEndereco(endereco);
+
+        unidadeRepository.save(unidadeTrabalho);
+        System.out.println("Salvo");
 	}
 	
-	public void visualizar() {
+	private void atualizar(Scanner scanner) {
+		System.out.println("Digite o id");
+        Integer id = scanner.nextInt();
+
+        System.out.println("Digite o nome da unidade");
+        String nome = scanner.next();
+
+        System.out.println("Digite o endereco");
+        String endereco = scanner.next();
+
+        Unidade unidade = new Unidade();
+        unidade.setId(id);
+        unidade.setDescricao(nome);
+        unidade.setEndereco(endereco);
+
+        unidadeRepository.save(unidade);
+        System.out.println("Alterado");
+	}
+	
+	private void visualizar() {
 		Iterable<Unidade> unidades = unidadeRepository.findAll();
 		unidades.forEach(unidade -> System.out.println(unidade));
 	}
 	
-	public void deletar(Scanner scanner){
-		System.out.println("Id:");
+	private void deletar(Scanner scanner) {
+		System.out.println("Id");
 		int id = scanner.nextInt();
 		unidadeRepository.deleteById(id);
 		System.out.println("Deletado");
 	}
-
+	
 }

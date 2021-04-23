@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 import br.com.projetospring.springdata.orm.Cargo;
 import br.com.projetospring.springdata.repositiry.CargoRepository;
 
+
 @Service
 public class CrudCargoService {
-
-	private boolean system = true;
+	
+	private Boolean system = true;
 	private final CargoRepository cargoRepository;
 	
 	public CrudCargoService(CargoRepository cargoRepository) {
@@ -19,11 +20,11 @@ public class CrudCargoService {
 	
 	public void inicial(Scanner scanner) {
 		while(system) {
-			System.out.println("Qual ação de Cargo deseja executar:");
+			System.out.println("Qual acao de cargo deseja executar");
 			System.out.println("0 - Sair");
 			System.out.println("1 - Salvar");
 			System.out.println("2 - Atualizar");
-			System.out.println("3 - Vizualizar");
+			System.out.println("3 - Visualizar");
 			System.out.println("4 - Deletar");
 			
 			int action = scanner.nextInt();
@@ -40,16 +41,18 @@ public class CrudCargoService {
 				break;
 			case 4:
 				deletar(scanner);
-				break;	
+				break;
 			default:
 				system = false;
 				break;
 			}
+			
 		}
+		
 	}
 	
-	public void salvar(Scanner scanner) {
-		System.out.println("Descrição: ");
+	private void salvar(Scanner scanner) {
+		System.out.println("Descricao do cargo");
 		String descricao = scanner.next();
 		Cargo cargo = new Cargo();
 		cargo.setDescricao(descricao);
@@ -57,10 +60,10 @@ public class CrudCargoService {
 		System.out.println("Salvo");
 	}
 	
-	public void atualizar(Scanner scanner) {
-		System.out.println("Id: ");
+	private void atualizar(Scanner scanner) {
+		System.out.println("Id");
 		int id = scanner.nextInt();
-		System.out.println("Descrição do cargo: ");
+		System.out.println("Descricao do Cargo");
 		String descricao = scanner.next();
 		
 		Cargo cargo = new Cargo();
@@ -70,15 +73,16 @@ public class CrudCargoService {
 		System.out.println("Atualizado");
 	}
 	
-	public void visualizar() {
+	private void visualizar() {
 		Iterable<Cargo> cargos = cargoRepository.findAll();
 		cargos.forEach(cargo -> System.out.println(cargo));
 	}
 	
-	public void deletar(Scanner scanner){
-		System.out.println("Id: ");
+	private void deletar(Scanner scanner) {
+		System.out.println("Id");
 		int id = scanner.nextInt();
 		cargoRepository.deleteById(id);
 		System.out.println("Deletado");
 	}
+	
 }

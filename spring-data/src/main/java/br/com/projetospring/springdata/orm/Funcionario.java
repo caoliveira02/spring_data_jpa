@@ -20,6 +20,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name = "funcionarios")
 public class Funcionario {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -27,14 +28,17 @@ public class Funcionario {
 	private String cpf;
 	private Double salario;
 	private LocalDate dataContratacao;
+	
 	@ManyToOne
-	@JoinColumn(name = "cargo_id", nullable = false)
+	@JoinColumn(name = "cargo_id", nullable = true)
 	private Cargo cargo;
+	
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "funcionarios_unidades", joinColumns = {
 			@JoinColumn(name = "fk_funcionario") }, 
 	inverseJoinColumns = { @JoinColumn(name = "fk_unidade") })
+	
 	private List<Unidade> unidades;
 
 	public Integer getId() {
@@ -85,11 +89,12 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 
-	public List<Unidade> getUnidadeTrabalhos() {
+	
+	public List<Unidade> getUnidades() {
 		return unidades;
 	}
 
-	public void setUnidadeTrabalhos(List<Unidade> unidades) {
+	public void setUnidades(List<Unidade> unidades) {
 		this.unidades = unidades;
 	}
 

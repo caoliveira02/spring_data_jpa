@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "unidade")
+@Table(name = "unidades")
 public class Unidade {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
