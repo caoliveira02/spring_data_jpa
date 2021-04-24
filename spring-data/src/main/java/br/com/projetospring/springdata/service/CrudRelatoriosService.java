@@ -1,5 +1,7 @@
 package br.com.projetospring.springdata.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ import br.com.projetospring.springdata.repositiry.FuncionarioRepository;
 public class CrudRelatoriosService {
 	
 	private boolean system = true;
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private final FuncionarioRepository funcionarioRepository;
 	
 	public CrudRelatoriosService(FuncionarioRepository funcionarioRepository) {
@@ -31,6 +34,9 @@ public class CrudRelatoriosService {
 			case 1:
 				buscarFuncionarioNome(scanner);
 				break;
+			case 2:
+				buscarFuncionarioNomeSalarioMaiorDate(scanner);
+				break;
 			default:
 				system = false;
 				break;
@@ -44,4 +50,21 @@ public class CrudRelatoriosService {
 		List<Funcionario> list = funcionarioRepository.findByNome(nome);
 		list.forEach(System.out::println);
 	}
+	
+	private void buscarFuncionarioNomeSalarioMaiorDate(Scanner scanner) {	
+		System.out.println("Qual nome deseja pesquisar");
+		String nome = scanner.next();
+
+		System.out.println("Qual data de contratação deseja pesquisar");
+		String data = scanner.next();
+		LocalDate localDate = LocalDate.parse(data, formatter);
+
+		System.out.println("Qual salario deseja pesquisar");
+		Double salario = scanner.nextDouble();
+		
+		List<Funcionario> list = funcionarioRepository.findNomeSalarioMaiorDataContratacao(nome, salario, localDate);
+		list.forEach(System.out::println);
+		
+	}
+	
 }

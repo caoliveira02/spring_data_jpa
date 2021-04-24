@@ -30,7 +30,7 @@ public class Funcionario {
 	private LocalDate dataContratacao;
 	
 	@ManyToOne
-	@JoinColumn(name = "cargo_id", nullable = true)
+	@JoinColumn(name = "cargo_id", nullable = false)
 	private Cargo cargo;
 	
 	@Fetch(FetchMode.SELECT)
