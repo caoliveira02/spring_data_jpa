@@ -8,6 +8,7 @@ import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
 import br.com.projetospring.springdata.orm.Funcionario;
+import br.com.projetospring.springdata.orm.FuncionarioProjecao;
 import br.com.projetospring.springdata.repositiry.FuncionarioRepository;
 
 @Service
@@ -40,6 +41,9 @@ public class CrudRelatoriosService {
 				break;
 			case 3:
 				buscarFuncionarioDataContratacaoMaior(scanner);
+				break;
+			case 4:
+				pesquisaFuncionarioSalario();
 				break;
 			default:
 				system = false;
@@ -79,6 +83,12 @@ public class CrudRelatoriosService {
 		
 		List<Funcionario> list = funcionarioRepository.findDataContratacaoMaior(localDate);
 		list.forEach(System.out::println);
+	}
+	
+	private void pesquisaFuncionarioSalario() {
+		List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+		list.forEach(f -> System.out.println("Funcionario: Id: " + f.getId()
+		+ " | nome: " + f.getNome() + " | salario: " + f.getSalario()));
 	}
 		
 }
