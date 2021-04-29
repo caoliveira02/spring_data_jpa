@@ -11,6 +11,7 @@ import br.com.projetospring.springdata.service.CrudCargoService;
 import br.com.projetospring.springdata.service.CrudFuncionarioService;
 import br.com.projetospring.springdata.service.CrudRelatoriosService;
 import br.com.projetospring.springdata.service.CrudUnidadeService;
+import br.com.projetospring.springdata.service.RelatorioFuncionarioDinamico;
 
 
 @EnableJpaRepositories
@@ -23,15 +24,19 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudFuncionarioService funcionarioService;
 	private final CrudUnidadeService unidadeService;
 	private final CrudRelatoriosService relatoriosService;
-		
+	private final RelatorioFuncionarioDinamico relatorioFuncionarioDinamico;
+	
 	public SpringDataApplication(CrudCargoService cargoService, 
 			CrudFuncionarioService funcionarioService, 
 			CrudUnidadeService unidadeService,
-			CrudRelatoriosService relatoriosService) {
+			CrudRelatoriosService relatoriosService,
+			RelatorioFuncionarioDinamico relatorioFuncionarioDinamico) {
 		this.cargoService = cargoService;
+		
 		this.funcionarioService = funcionarioService;
 		this.unidadeService = unidadeService;
 		this.relatoriosService = relatoriosService;
+		this.relatorioFuncionarioDinamico = relatorioFuncionarioDinamico;	
 	}
 	
 	public static void main(String[] args) {
@@ -50,6 +55,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println("2 - Cargo");
 			System.out.println("3 - Unidade");
 			System.out.println("4 - Relatórios");
+			System.out.println("5 - Relatório de funcionarios dinamico");
 			
 			int action = scanner.nextInt();
 		
@@ -66,6 +72,9 @@ public class SpringDataApplication implements CommandLineRunner {
 			case 4:
 				relatoriosService.inicial(scanner);
 				break;
+			case 5:
+				relatorioFuncionarioDinamico.inicial(scanner);
+				break;
 			default:
 				System.out.println("Finalizando");
 				system = false;
@@ -74,5 +83,4 @@ public class SpringDataApplication implements CommandLineRunner {
 		}
 	
 	}
-
 }
